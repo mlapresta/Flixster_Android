@@ -2,17 +2,22 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/container"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:background="#000000">
 
     <ImageView
         android:id="@+id/ivPoster"
         android:layout_width="120dp"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="false"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="false"
+        android:layout_centerVertical="true"
         android:layout_marginStart="0dp"
         android:layout_marginTop="0dp"
+        android:background="#FFFFFF"
         tools:srcCompat="@tools:sample/avatars" />
 
     <TextView
@@ -23,7 +28,9 @@
         android:layout_marginStart="5dp"
         android:layout_marginTop="14dp"
         android:layout_toEndOf="@+id/ivPoster"
+        android:textColor="#9BC0E8"
         android:textSize="24sp"
+        android:textStyle="bold"
         tools:text="Money Plane" />
 
     <TextView
@@ -34,5 +41,8 @@
         android:layout_marginStart="5dp"
         android:layout_marginTop="5dp"
         android:layout_toEndOf="@+id/ivPoster"
+        android:isScrollContainer="false"
+        android:maxLines="8"
+        android:textColor="#FFFFFF"
         tools:text="A professional thief with $40 million in debt and his family's life on the line must commit one final heist - rob a futuristic airborne casino filled with the world's most dangerous criminals." />
 </RelativeLayout>
