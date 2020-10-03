@@ -41,7 +41,7 @@ public class DetailActivity extends YouTubeBaseActivity {
         youTubePlayerView = findViewById(R.id.player);
 
         String title = getIntent().getStringExtra("title");
-        Movie movie = Parcels.unwrap(getIntent().getParcelableExtra("movie"));
+        final Movie movie = Parcels.unwrap(getIntent().getParcelableExtra("movie"));
         tvTitle.setText(movie.getTitle());
         tvOverview.setText(movie.getOverview());
         ratingBar.setRating((float)movie.getRating());
@@ -57,7 +57,11 @@ public class DetailActivity extends YouTubeBaseActivity {
                             }
                             String youtubeKey = results.getJSONObject(0).getString("key");
                             Log.d("DetailActivity", youtubeKey);
-                            initializeYoutube(youtubeKey);
+                            if ((float)movie.getRating() > 5){
+                                popularVideo(youtubeKey);
+                            } else {
+                                initializeYoutube(youtubeKey);
+                            }
 
                         } catch (JSONException e) {
                             Log.e("DetailActivity", "Failed to parse JSON", e);
@@ -81,6 +85,22 @@ public class DetailActivity extends YouTubeBaseActivity {
             public void onInitializationSuccess(YouTubePlayer.Provider provider, YouTubePlayer youTubePlayer, boolean b) {
                 Log.d("DetailActivity", "onInitializationSuccess");
                 youTubePlayer.cueVideo(youtubeKey);
+            }
+
+            @Override
+            public void onInitializationFailure(YouTubePlayer.Provider provider, YouTubeInitializationResult youTubeInitializationResult) {
+                Log.d("DetailActivity", "onInitializationFailure");
+
+            }
+        });
+    }
+
+    private void popularVideo(final String youtubeKey) {
+        youTubePlayerView.initialize(YOUTUBE_API_KEY, new YouTubePlayer.OnInitializedListener() {
+            @Override
+            public void onInitializationSuccess(YouTubePlayer.Provider provider, YouTubePlayer youTubePlayer, boolean b) {
+                Log.d("DetailActivity", "onInitializationSuccess");
+                youTubePlayer.loadVideo(youtubeKey);
             }
 
             @Override
